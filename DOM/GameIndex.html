@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./GameStyle.css" />
+    <title>Guess My Number!</title>
+  </head>
+  <body>
+    <header>
+      <h1>Guess My Number!</h1>
+      <p class="between">(Between 1 and 100)</p>
+      <button class="btn again" onclick="reloadgame()"> Play Again</button>
+      <div class="number">?</div>  //random no.
+    </header>
+    <main id="main">
+      <section class="left">
+        <input type="number" class="guess" id="guessid" value="" />  //input
+        <button class="btn check" onclick="maincheck()">Check!</button>
+      </section>
+      <section class="right">
+        <p class="message" id="sc">Start guessing...
+          <p id="msg"></p>
+        </p>  //msg
+
+        <p class="label-score">💯 Chances: <span class="score">100</span></p> //score
+        <p class="label-highscore">
+          🥇 Highscore: <span class="highscore">0</span>
+        </p>
+      </section>
+    </main>
+
+  <script>
+    let variable =parseInt(Math.random()*100 +1);
+    let input =document.getElementById("guessid");
+    console.log(input);
+    let message=document.getElementById("sc");
+    let chances =document.getElementsByClassName("score")[0];
+    console.log(chances);
+    let highScore =document.getElementsByClassName("highscore")[0];
+    console.log(highScore);
+    let bdy =document.getElementById("main");
+
+    //def set chance t0 100;
+    let c =100;
+
+    //set score to 0;
+    let s =0;
+
+
+    console.log("Random NO",variable);
+
+
+    function maincheck(){
+      let html="";
+
+      if(variable == input.value){
+        console.log("We are in right place");
+        message.innerHTML ="Your guess is right!!HurrayYou Won";
+        document.getElementById("msg").innerText = String.fromCodePoint(128525);
+        document.getElementById("msg").style.fontSize="50px";
+
+        document.body.style.backgroundColor = "green";
+        highScore.innerText =100;
+        console.log("score incremented!!",highScore);
+        c --;
+        console.log("chance missed!! remng:",chances);
+        chances.innerHTML =c;
+
+      }
+
+      else
+      {
+        if(variable < input.value){
+          console.log("we are in low ");
+          message.innerHTML ="Your guess is high!!";
+          c--;
+          s+=10;
+          highScore.innerText =s;
+          chances.innerText =c;
+        }
+
+        if(variable > input.value){
+          console.log("we are in high");
+          message.innerHTML ="Your guess is low!!";
+          c--;s+=10;
+          highScore.innerText =s;
+          chances.innerText=c;
+        }
+    }
+
+  };
+
+  function reloadgame(){
+
+    input.value =0;
+    highScore.innerText =0;
+    chances.innerText =100;
+    message.innerText="Start guessing...";
+
+  }
+
+
+
+  </script>
+  </body>
+</html>
